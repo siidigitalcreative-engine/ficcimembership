@@ -1,0 +1,257 @@
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 26px;
+}
+
+.stats article {
+  padding: 22px;
+  border: 1px solid #dce5df;
+  border-radius: 18px;
+  background: #ffffff;
+}
+
+.stats span,
+.stats strong {
+  display: block;
+}
+
+.stats span {
+  color: #62706a;
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.stats strong {
+  margin-top: 7px;
+  font-size: 2rem;
+}
+
+.applicationList {
+  display: grid;
+  gap: 22px;
+}
+
+.applicationCard {
+  padding: 28px;
+  border: 1px solid #dce5df;
+  border-radius: 22px;
+  background: #ffffff;
+  box-shadow: 0 12px 34px rgba(19, 46, 35, 0.07);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #e3e9e5;
+}
+
+.cardHeader h2 {
+  margin: 10px 0 5px;
+  font-size: 1.7rem;
+}
+
+.cardHeader p,
+.cardHeader small {
+  margin: 0;
+  color: #62706a;
+}
+
+.statusRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  align-items: center;
+}
+
+.statusBadge,
+.reference {
+  display: inline-flex;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+.statusBadge {
+  background: #eef2ef;
+  color: #30423a;
+}
+
+.statusNew {
+  background: #fff2cb;
+  color: #765a00;
+}
+
+.statusUnderReview {
+  background: #e8f1ff;
+  color: #245899;
+}
+
+.statusApproved {
+  background: #e4f6ea;
+  color: #176a4c;
+}
+
+.statusDeclined {
+  background: #fde9e9;
+  color: #9d2c2c;
+}
+
+.reference {
+  background: #f1f4f2;
+  color: #62706a;
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  padding: 26px 0;
+}
+
+.summaryGrid h3,
+.detailsGrid h3 {
+  margin: 0 0 15px;
+  font-size: 1rem;
+}
+
+.summaryGrid dl {
+  display: grid;
+  gap: 13px;
+  margin: 0;
+}
+
+.summaryGrid dl > div {
+  display: grid;
+  gap: 3px;
+}
+
+.summaryGrid dt {
+  color: #738078;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.summaryGrid dd {
+  margin: 0;
+  color: #27362f;
+  overflow-wrap: anywhere;
+}
+
+.summaryGrid code {
+  padding: 3px 7px;
+  border-radius: 7px;
+  background: #eef7f1;
+  color: #0e4f38;
+  font-family: inherit;
+  font-weight: 900;
+}
+
+.details {
+  border-block: 1px solid #e3e9e5;
+}
+
+.details summary {
+  padding: 18px 0;
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  padding: 5px 0 24px;
+}
+
+.detailsGrid section {
+  padding: 20px;
+  border-radius: 15px;
+  background: #f6f8f6;
+}
+
+.detailsGrid p,
+.detailsGrid ul {
+  margin: 0;
+  color: #526159;
+  white-space: pre-wrap;
+}
+
+.reviewActions {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.35fr) 1fr;
+  gap: 18px;
+  padding-top: 24px;
+}
+
+.reviewActions label {
+  display: grid;
+  gap: 7px;
+}
+
+.reviewActions label > span {
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.reviewActions select,
+.reviewActions textarea {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid #cfdad3;
+  border-radius: 12px;
+  background: #fbfcfb;
+  color: #15211d;
+  font: inherit;
+}
+
+.reviewFooter {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.reviewFooter small {
+  color: #176a4c;
+  font-weight: 800;
+}
+
+@media (max-width: 920px) {
+  .stats,
+  .summaryGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .reviewActions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .stats,
+  .summaryGrid,
+  .detailsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .applicationCard {
+    padding: 22px 18px;
+  }
+
+  .cardHeader {
+    flex-direction: column;
+  }
+
+  .reviewFooter {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
