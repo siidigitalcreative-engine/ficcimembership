@@ -1,0 +1,35 @@
+.home,
+.home :global(*) {
+  font-weight: 400 !important;
+}
+
+.home :global(h1),
+.home :global(h2),
+.home :global(h3),
+.home :global(h4),
+.home :global(h5),
+.home :global(h6),
+.home :global(strong),
+.home :global(b),
+.home :global(nav a),
+.home :global(button),
+.home :global(.button),
+.home :global(.brand-mark),
+.home :global(.brand strong),
+.home :global(.eyebrow),
+.home :global(.hero-copy),
+.home :global(.hero-card p),
+.home :global(.hero-card strong),
+.home :global(.check-icon),
+.home :global(.step-number),
+.home :global(.discount-label),
+.home :global(.category-pill),
+.home :global(.status-active),
+.home :global(.status-inactive),
+.home :global(.status-draft),
+.home :global(.featured-badge),
+.home :global(.featured-mini),
+.home :global(.text-link),
+.home :global(summary) {
+  font-weight: 700 !important;
+}
