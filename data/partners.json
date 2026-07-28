@@ -1,1 +1,45 @@
-[]
+[
+  {
+    "id": "demo-partner-restaurant-001",
+    "slug": "demo-partner-restaurant",
+    "name": "Demo Partner Restaurant",
+    "category": "Dining",
+    "shortDescription": "A complete sample listing showing how a participating restaurant and its member-exclusive benefit will appear in the directory.",
+    "fullDescription": "This is a demonstration partner created for preview and testing. Replace the establishment name, images, links, contact details, branches, offer mechanics, and promo code with confirmed information before the official public launch.",
+    "offerTitle": "10% FICCI Member Discount",
+    "offerDetails": "Active FICCI members receive 10% off their total bill for eligible dine-in, takeout, and online orders. Members must present their active membership in the My Glue app before payment. For online orders, enter the promo code at checkout.",
+    "discountLabel": "10% OFF",
+    "redemptionType": "both",
+    "promoCode": "FICCI10",
+    "showPromoCodePublicly": true,
+    "websiteUrl": "https://example.com",
+    "onlineStoreUrl": "https://example.com/order",
+    "logoUrl": "https://placehold.co/400x400/0f5132/ffffff?text=DPR",
+    "coverImageUrl": "https://placehold.co/1200x700/0f5132/ffffff?text=Demo+Partner+Restaurant",
+    "branches": [
+      "Makati City — Sample Main Branch",
+      "Bonifacio Global City — Sample Branch",
+      "Online orders — Nationwide delivery subject to service coverage"
+    ],
+    "terms": [
+      "Demo entry only; confirm all information with the establishment before public launch.",
+      "Available to active FICCI members who present their membership through the My Glue app.",
+      "For physical redemption, the benefit must be requested before billing or payment.",
+      "For online redemption, use promo code FICCI10 before completing checkout.",
+      "Valid for eligible regular-priced items only.",
+      "Not valid with other promotions, senior citizen discounts, PWD discounts, gift certificates, or special packages.",
+      "A minimum purchase of ₱1,000 applies to online orders.",
+      "The establishment may request a valid ID matching the member record.",
+      "Offer is subject to participating branch availability and confirmed program rules."
+    ],
+    "startDate": "2026-04-06",
+    "endDate": "2027-02-28",
+    "contactName": "Demo Partner Contact",
+    "contactEmail": "partnerships@example.com",
+    "contactPhone": "+63 917 000 0000",
+    "published": true,
+    "featured": true,
+    "createdAt": "2026-07-28T06:20:00.000Z",
+    "updatedAt": "2026-07-28T06:20:00.000Z"
+  }
+]
