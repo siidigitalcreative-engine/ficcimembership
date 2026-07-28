@@ -1,38 +1,26 @@
-import { NextResponse } from "next/server";
-import { isAdminAuthenticated } from "@/lib/auth";
-import { deletePartner, updatePartner } from "@/lib/partners-store";
+import { notFound } from "next/navigation";
+import { PartnerForm } from "@/components/PartnerForm";
+import { requireAdmin } from "@/lib/auth";
+import { getPartnerById } from "@/lib/partners-store";
 
-export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
-  if (!(await isAdminAuthenticated())) {
-    return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
-  }
-  try {
-    const { id } = await params;
-    const partner = await updatePartner(id, await request.json());
-    return NextResponse.json({ partner });
-  } catch (error) {
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Unable to update the partner." },
-      { status: 400 },
-    );
-  }
-}
+export default async function EditPartnerPage({ params }: { params: Promise<{ id: string }> }) {
+  await requireAdmin();
+  const { id } = await params;
+  const partner = await getPartnerById(id);
+  if (!partner) notFound();
 
-export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
-  if (!(await isAdminAuthenticated())) {
-    return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
-  }
-  try {
-    const { id } = await params;
-    await deletePartner(id);
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Unable to delete the partner." },
-      { status: 400 },
-    );
-  }
+  return (
+    <main className="admin-shell form-shell">
+      <header className="admin-header compact-admin-header">
+        <div>
+          <p className="eyebrow">Edit establishment</p>
+          <h1>{partner.name}</h1>
+          <p>Update the benefit details, validity, links, branches, and publishing status.</p>
+        </div>
+      </header>
+      <PartnerForm partner={partner} />
+    </main>
+  );
 }
