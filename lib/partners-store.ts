@@ -107,9 +107,27 @@ async function writeBlobPartners(partners: Partner[]) {
 }
 
 export async function getPartners() {
-  const partners = isBlobConfigured()
-    ? await readBlobPartners()
-    : await readLocalPartners();
+  let partners: Partner[];
+
+  if (isBlobConfigured()) {
+    const blobPartners = await readBlobPartners();
+
+    // On the first Vercel deployment, seed the private Blob store from
+    // data/partners.json so the complete sample partner appears immediately.
+    if (blobPartners.length === 0) {
+      const seedPartners = await readLocalPartners();
+      if (seedPartners.length > 0) {
+        await writeBlobPartners(seedPartners);
+        partners = seedPartners;
+      } else {
+        partners = [];
+      }
+    } else {
+      partners = blobPartners;
+    }
+  } else {
+    partners = await readLocalPartners();
+  }
 
   return partners.sort((a, b) => {
     if (a.featured !== b.featured) return a.featured ? -1 : 1;
