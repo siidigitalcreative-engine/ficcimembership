@@ -3,16 +3,23 @@ import { DeletePartnerButton } from "@/components/DeletePartnerButton";
 import { LogoutButton } from "@/components/LogoutButton";
 import { requireAdmin } from "@/lib/auth";
 import { getPartners } from "@/lib/partners-store";
+import { getPartnerApplications } from "@/lib/partner-applications-store";
 import { formatDate } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminDashboardPage() {
   await requireAdmin();
-  const partners = await getPartners();
+  const [partners, applications] = await Promise.all([
+    getPartners(),
+    getPartnerApplications(),
+  ]);
   const published = partners.filter((partner) => partner.published).length;
   const featured = partners.filter((partner) => partner.featured).length;
   const drafts = partners.length - published;
+  const newApplications = applications.filter(
+    (application) => application.status === "new",
+  ).length;
 
   return (
     <main className="admin-shell">
@@ -20,19 +27,47 @@ export default async function AdminDashboardPage() {
         <div>
           <p className="eyebrow">FICCI Benefits Admin</p>
           <h1>Partner establishments</h1>
-          <p>Add and manage physical or online establishments, benefits, branches, promo codes, and validity.</p>
+          <p>
+            Add and manage physical or online establishments, benefits,
+            branches, promo codes, and validity.
+          </p>
         </div>
         <div className="admin-header-actions">
-          <Link className="button button-secondary button-small" href="/" target="_blank">View public site</Link>
+          <Link
+            className="button button-secondary button-small"
+            href="/admin/applications"
+          >
+            Applications
+            {newApplications ? ` (${newApplications} new)` : ""}
+          </Link>
+          <Link
+            className="button button-secondary button-small"
+            href="/"
+            target="_blank"
+          >
+            View public site
+          </Link>
           <LogoutButton />
         </div>
       </header>
 
       <section className="admin-stats">
-        <article><span>Total partners</span><strong>{partners.length}</strong></article>
-        <article><span>Published</span><strong>{published}</strong></article>
-        <article><span>Drafts</span><strong>{drafts}</strong></article>
-        <article><span>Featured</span><strong>{featured}</strong></article>
+        <article>
+          <span>Total partners</span>
+          <strong>{partners.length}</strong>
+        </article>
+        <article>
+          <span>Published</span>
+          <strong>{published}</strong>
+        </article>
+        <article>
+          <span>Drafts</span>
+          <strong>{drafts}</strong>
+        </article>
+        <article>
+          <span>Featured</span>
+          <strong>{featured}</strong>
+        </article>
       </section>
 
       <section className="admin-panel">
@@ -41,7 +76,12 @@ export default async function AdminDashboardPage() {
             <p className="eyebrow">Directory management</p>
             <h2>All establishments</h2>
           </div>
-          <Link className="button button-primary" href="/admin/partners/new">+ Add partner establishment</Link>
+          <Link
+            className="button button-primary"
+            href="/admin/partners/new"
+          >
+            + Add partner establishment
+          </Link>
         </div>
 
         {partners.length ? (
@@ -61,11 +101,19 @@ export default async function AdminDashboardPage() {
                   <tr key={partner.id}>
                     <td>
                       <strong>{partner.name}</strong>
-                      <small>{partner.category} · {partner.redemptionType}</small>
+                      <small>
+                        {partner.category} · {partner.redemptionType}
+                      </small>
                     </td>
                     <td>
-                      <strong>{partner.discountLabel || partner.offerTitle}</strong>
-                      {partner.promoCode ? <small>Code: {partner.promoCode}</small> : <small>No promo code</small>}
+                      <strong>
+                        {partner.discountLabel || partner.offerTitle}
+                      </strong>
+                      {partner.promoCode ? (
+                        <small>Code: {partner.promoCode}</small>
+                      ) : (
+                        <small>No promo code</small>
+                      )}
                     </td>
                     <td>
                       <span>{formatDate(partner.startDate)}</span>
@@ -73,15 +121,41 @@ export default async function AdminDashboardPage() {
                     </td>
                     <td>
                       <div className="status-stack">
-                        <span className={partner.published ? "status-active" : "status-draft"}>{partner.published ? "Published" : "Draft"}</span>
-                        {partner.featured ? <span className="featured-mini">Featured</span> : null}
+                        <span
+                          className={
+                            partner.published
+                              ? "status-active"
+                              : "status-draft"
+                          }
+                        >
+                          {partner.published ? "Published" : "Draft"}
+                        </span>
+                        {partner.featured ? (
+                          <span className="featured-mini">Featured</span>
+                        ) : null}
                       </div>
                     </td>
                     <td>
                       <div className="table-actions">
-                        {partner.published ? <Link className="button button-secondary button-small" href={`/partners/${partner.slug}`} target="_blank">View</Link> : null}
-                        <Link className="button button-secondary button-small" href={`/admin/partners/${partner.id}/edit`}>Edit</Link>
-                        <DeletePartnerButton id={partner.id} name={partner.name} />
+                        {partner.published ? (
+                          <Link
+                            className="button button-secondary button-small"
+                            href={`/partners/${partner.slug}`}
+                            target="_blank"
+                          >
+                            View
+                          </Link>
+                        ) : null}
+                        <Link
+                          className="button button-secondary button-small"
+                          href={`/admin/partners/${partner.id}/edit`}
+                        >
+                          Edit
+                        </Link>
+                        <DeletePartnerButton
+                          id={partner.id}
+                          name={partner.name}
+                        />
                       </div>
                     </td>
                   </tr>
@@ -92,8 +166,16 @@ export default async function AdminDashboardPage() {
         ) : (
           <div className="empty-state admin-empty">
             <h2>No partner establishments yet.</h2>
-            <p>Add the first approved business and publish it when all details are confirmed.</p>
-            <Link className="button button-primary" href="/admin/partners/new">Add the first partner</Link>
+            <p>
+              Add the first approved business and publish it when all details
+              are confirmed.
+            </p>
+            <Link
+              className="button button-primary"
+              href="/admin/partners/new"
+            >
+              Add the first partner
+            </Link>
           </div>
         )}
       </section>
