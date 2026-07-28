@@ -1,6 +1,6 @@
 {
-  "name": "ficci-member-awareness-guide",
-  "version": "1.0.0",
+  "name": "ficci-membership-benefits-portal",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,9 +9,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@vercel/blob": "^2.6.1",
     "next": "16.2.11",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
