@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { PrintButton } from "@/components/PrintButton";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { PartnerCard } from "@/components/PartnerCard";
 import { getPublishedPartners } from "@/lib/partners-store";
 import { siteConfig } from "@/lib/site-config";
 import { formatDate } from "@/lib/format";
+import styles from "./home.module.css";
 
 export const dynamic = "force-dynamic";
 
@@ -46,13 +46,15 @@ const reminders = [
 
 export default async function HomePage() {
   const partners = await getPublishedPartners();
-  const featuredPartners = partners.filter((partner) => partner.featured).slice(0, 3);
+  const featuredPartners = partners
+    .filter((partner) => partner.featured)
+    .slice(0, 3);
   const visiblePartners = featuredPartners.length
     ? featuredPartners
     : partners.slice(0, 3);
 
   return (
-    <main>
+    <main className={styles.home}>
       <SiteHeader />
 
       <section className="hero" id="top">
@@ -61,29 +63,37 @@ export default async function HomePage() {
             <p className="eyebrow">FICCI Member Privileges</p>
             <h1>Membership benefits from trusted partner establishments.</h1>
             <p className="hero-copy">
-              Explore exclusive discounts and privileges available to active FICCI members through the My Glue app.
+              Explore exclusive discounts and privileges available to active
+              FICCI members through the My Glue app.
             </p>
             <div className="button-row no-print">
               <Link className="button button-primary" href="/partners">
                 View Partner Establishments
               </Link>
-              <a className="button button-secondary" href={siteConfig.myGlueDownloadUrl} target="_blank" rel="noreferrer">
+              <a
+                className="button button-secondary"
+                href={siteConfig.myGlueDownloadUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
                 Download My Glue
               </a>
-              <a className="button button-secondary" href={siteConfig.glueUpProgramUrl} target="_blank" rel="noreferrer">
-                Apply as a Benefit Partner
-              </a>
-              <PrintButton />
             </div>
           </div>
 
           <aside className="hero-card" aria-label="Program information">
-            <span className="check-icon" aria-hidden="true">✓</span>
+            <span className="check-icon" aria-hidden="true">
+              ✓
+            </span>
             <p>Program validity</p>
             <strong>
-              {formatDate(siteConfig.programStartDate)} to {formatDate(siteConfig.programEndDate)}
+              {formatDate(siteConfig.programStartDate)} to{" "}
+              {formatDate(siteConfig.programEndDate)}
             </strong>
-            <small>Present an active FICCI membership in My Glue when availing a partner benefit.</small>
+            <small>
+              Present an active FICCI membership in My Glue when availing a
+              partner benefit.
+            </small>
           </aside>
         </div>
       </section>
@@ -94,20 +104,35 @@ export default async function HomePage() {
             <div>
               <p className="eyebrow">Participating establishments</p>
               <h2>Discover member-exclusive benefits</h2>
-              <p>Browse approved physical and online partners and review each offer before redemption.</p>
+              <p>
+                Browse approved physical and online partners and review each
+                offer before redemption.
+              </p>
             </div>
-            <Link className="button button-secondary no-print" href="/partners">View all partners</Link>
+            <Link
+              className="button button-secondary no-print"
+              href="/partners"
+            >
+              View all partners
+            </Link>
           </div>
 
           {visiblePartners.length ? (
             <div className="partner-grid">
-              {visiblePartners.map((partner) => <PartnerCard key={partner.id} partner={partner} />)}
+              {visiblePartners.map((partner) => (
+                <PartnerCard key={partner.id} partner={partner} />
+              ))}
             </div>
           ) : (
             <div className="empty-state">
               <h2>Partner establishments will appear here.</h2>
-              <p>Approved offers can be added and published through the secure admin area.</p>
-              <Link className="button button-primary no-print" href="/admin">Open Admin</Link>
+              <p>
+                Approved offers can be added and published through the secure
+                admin area.
+              </p>
+              <Link className="button button-primary no-print" href="/admin">
+                Open Admin
+              </Link>
             </div>
           )}
         </div>
@@ -118,7 +143,10 @@ export default async function HomePage() {
           <div className="section-heading">
             <p className="eyebrow">Member awareness guide</p>
             <h2>How to avail your benefits</h2>
-            <p>Complete these steps before paying at a participating establishment.</p>
+            <p>
+              Complete these steps before paying at a participating
+              establishment.
+            </p>
           </div>
 
           <ol className="steps-grid">
@@ -146,11 +174,18 @@ export default async function HomePage() {
             <p className="eyebrow">Physical establishments</p>
             <h2>In-store redemption</h2>
             <ol className="compact-list ordered">
-              <li>Check the partner’s offer, branch coverage, and conditions.</li>
-              <li>Inform the staff before payment that you will use the FICCI benefit.</li>
+              <li>
+                Check the partner’s offer, branch coverage, and conditions.
+              </li>
+              <li>
+                Inform the staff before payment that you will use the FICCI
+                benefit.
+              </li>
               <li>Show your active FICCI membership in My Glue.</li>
               <li>Present a valid ID when requested.</li>
-              <li>Confirm that the correct benefit was applied before paying.</li>
+              <li>
+                Confirm that the correct benefit was applied before paying.
+              </li>
             </ol>
           </article>
 
@@ -159,10 +194,15 @@ export default async function HomePage() {
             <h2>Online redemption</h2>
             <ol className="compact-list ordered">
               <li>Use the official link on the partner’s benefit page.</li>
-              <li>Review eligible products, minimum purchase, and expiry date.</li>
+              <li>
+                Review eligible products, minimum purchase, and expiry date.
+              </li>
               <li>Enter the approved FICCI promo code at checkout.</li>
               <li>Confirm the discount before completing payment.</li>
-              <li>Take a screenshot and report the issue if the code does not work.</li>
+              <li>
+                Take a screenshot and report the issue if the code does not
+                work.
+              </li>
             </ol>
           </article>
         </div>
@@ -176,7 +216,9 @@ export default async function HomePage() {
               <h2>Please remember</h2>
             </div>
             <ul className="check-list">
-              {reminders.map((reminder) => <li key={reminder}>{reminder}</li>)}
+              {reminders.map((reminder) => (
+                <li key={reminder}>{reminder}</li>
+              ))}
             </ul>
           </div>
         </div>
@@ -189,24 +231,32 @@ export default async function HomePage() {
               <p className="eyebrow">Member support</p>
               <h2>Need assistance?</h2>
               <p>
-                Contact FICCI and include your registered email, establishment name, branch, date, and a short description of your concern.
+                Contact FICCI and include your registered email, establishment
+                name, branch, date, and a short description of your concern.
               </p>
               <p className="support-details">
-                {siteConfig.supportEmail ? (<>
-                  <strong>Email:</strong> {siteConfig.supportEmail}<br />
-                </>) : null}
+                {siteConfig.supportEmail ? (
+                  <>
+                    <strong>Email:</strong> {siteConfig.supportEmail}
+                    <br />
+                  </>
+                ) : null}
                 <strong>Phone:</strong> {siteConfig.supportPhone}
               </p>
             </div>
             <a
               className="button button-primary no-print"
-              href={siteConfig.supportEmail
-                ? `mailto:${siteConfig.supportEmail}?subject=FICCI%20Membership%20Benefits%20Support`
-                : siteConfig.glueUpProgramUrl}
+              href={
+                siteConfig.supportEmail
+                  ? `mailto:${siteConfig.supportEmail}?subject=FICCI%20Membership%20Benefits%20Support`
+                  : siteConfig.glueUpProgramUrl
+              }
               target={siteConfig.supportEmail ? undefined : "_blank"}
               rel={siteConfig.supportEmail ? undefined : "noreferrer"}
             >
-              {siteConfig.supportEmail ? "Contact Membership Support" : "Contact through Glue Up"}
+              {siteConfig.supportEmail
+                ? "Contact Membership Support"
+                : "Contact through Glue Up"}
             </a>
           </div>
         </div>
