@@ -14,7 +14,7 @@ export function SiteHeader() {
         </Link>
         <nav aria-label="Main navigation">
           <Link href="/partners">Partners</Link>
-          <Link href="/#how-to-use">How to Use</Link>
+          <Link href="/guide">Member Guide</Link>
           <a href={siteConfig.glueUpProgramUrl} target="_blank" rel="noreferrer">Glue Up Program</a>
           <Link className="nav-admin" href="/admin">Admin</Link>
         </nav>
